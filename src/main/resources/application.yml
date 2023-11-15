@@ -1,0 +1,3 @@
+cache:
+  maxSize: 50
+  algorithm: LRU
