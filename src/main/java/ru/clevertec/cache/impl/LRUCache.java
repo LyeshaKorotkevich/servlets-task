@@ -1,6 +1,8 @@
 package ru.clevertec.cache.impl;
 
 import ru.clevertec.cache.Cache;
+import ru.clevertec.cache.DoublyLinkedList;
+import ru.clevertec.cache.Node;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +21,7 @@ public class LRUCache<K, V> implements Cache<K, V> {
     public static final Long DEFAULT_SIZE = 20L;
 
     /**
-     * Текущий размер кэша.
+     * Размер кэша.
      */
     private final Long size;
 
@@ -29,27 +31,9 @@ public class LRUCache<K, V> implements Cache<K, V> {
     private Map<K, Node<K, V>> cacheMap;
 
     /**
-     * Узел двусвязного списка для отслеживания порядка использования элементов.
+     * Двусвязный список для отслеживания порядка использования элементов.
      */
-    private Node<K, V> head, tail;
-
-    /**
-     * Внутренний класс, представляющий узел двусвязного списка.
-     *
-     * @param <K> Тип ключа узла.
-     * @param <V> Тип значения узла.
-     */
-    private static class Node<K, V> {
-        K key;
-        V value;
-        Node<K, V> next;
-        Node<K, V> prev;
-
-        public Node(K key, V value) {
-            this.key = key;
-            this.value = value;
-        }
-    }
+    private DoublyLinkedList<K, V> linkedList;
 
     /**
      * Конструктор LRU-кэша с размером по умолчанию.
@@ -71,15 +55,16 @@ public class LRUCache<K, V> implements Cache<K, V> {
     @Override
     public void clean() {
         cacheMap = new HashMap<>();
+        linkedList = new DoublyLinkedList<>();
     }
 
     @Override
     public Optional<V> get(K key) {
         if (cacheMap.containsKey(key)) {
             Node<K, V> node = cacheMap.get(key);
-            removeNode(node);
-            addToTail(node);
-            return Optional.of(node.value);
+            linkedList.removeNode(node);
+            linkedList.addToTail(node);
+            return Optional.of(node.getValue());
         }
         return Optional.empty();
     }
@@ -94,63 +79,21 @@ public class LRUCache<K, V> implements Cache<K, V> {
      */
     @Override
     public void put(K key, V value) {
-        if(cacheMap.containsKey(key)){
+        if (cacheMap.containsKey(key)) {
             Node<K, V> item = cacheMap.get(key);
-            item.value = value;
+            item.setValue(value);
 
-            removeNode(item);
-            addToTail(item);
-        }else{
-            if(cacheMap.size() >= size){
-                cacheMap.remove(head.key);
-                removeNode(head);
+            linkedList.removeNode(item);
+            linkedList.addToTail(item);
+        } else {
+            if (cacheMap.size() >= size) {
+                cacheMap.remove(linkedList.getHead().getKey());
+                linkedList.removeNode(linkedList.getHead());
             }
 
-            Node<K, V> node = new Node<>(key, value);
-            addToTail(node);
+            Node<K, V> node = new Node<>(key, value, 1);
+            linkedList.addToTail(node);
             cacheMap.put(key, node);
-        }
-    }
-
-    /**
-     * Удаляет указанный узел из списка.
-     * Обновляет ссылки предыдущего и следующего узлов при необходимости.
-     *
-     * @param node Узел, который нужно удалить.
-     */
-    private void removeNode(Node<K, V> node){
-
-        if(node.prev != null){
-            node.prev.next = node.next;
-        }else{
-            head = node.next;
-        }
-
-        if(node.next != null){
-            node.next.prev = node.prev;
-        }else{
-            tail = node.prev;
-        }
-    }
-
-    /**
-     * Добавляет указанный узел в конец списка.
-     * Обновляет ссылки узлов для поддержания структуры двусвязного списка.
-     *
-     * @param node Узел, который нужно добавить в конец списка.
-     */
-    private void addToTail(Node<K, V> node){
-
-        if(tail != null){
-            tail.next = node;
-        }
-
-        node.prev = tail;
-        node.next = null;
-        tail = node;
-
-        if(head == null){
-            head = tail;
         }
     }
 }
