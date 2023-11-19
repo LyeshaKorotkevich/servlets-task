@@ -32,4 +32,11 @@ public interface Cache<K, V> {
      * @param value Значение, которое будет ассоциировано с указанным ключом.
      */
     void put(K key, V value);
+
+    /**
+     * Удаляет объект из кэша
+     *
+     * @param key key объекта для удаления
+     */
+    void remove(K key);
 }
