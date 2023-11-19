@@ -13,11 +13,11 @@ import java.time.LocalDate;
  */
 public record PlayerDto(
 
-        @Pattern(regexp = "^[A-Za-z]+$", message = "Имя должно содержать только буквы")
+        @Pattern(regexp = "^[A-Za-zА-Яа-я]+$", message = "Имя должно содержать только буквы")
         @NotBlank
         String name,
 
-        @Pattern(regexp = "^[A-Za-z-]+$", message = "Фамилия должно содержать только буквы или -")
+        @Pattern(regexp = "^[A-Za-zА-Яа-я-]+$", message = "Фамилия должно содержать только буквы или -")
         @NotBlank
         String surname,
 

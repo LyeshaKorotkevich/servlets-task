@@ -5,15 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c28f922b-fd4b-4966-a120-73eb5c43e1fa" name="Changes" comment="feat: add YamlReader">
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/exception/PlayerNotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/service/PlayerService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/service/impl/PlayerServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/validator/PlayerValidator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/validator/annotation/TShirtNumber.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ru/clevertec/cache/impl/LFUCacheTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ru/clevertec/cache/impl/LRUCacheTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/clevertec/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/clevertec/aop/PlayerProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/aop/PlayerProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/clevertec/aop/annotation/DeletePlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/aop/annotation/DeletePlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/clevertec/aop/annotation/GetPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/aop/annotation/GetPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/clevertec/aop/annotation/PostPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/aop/annotation/PostPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/clevertec/aop/annotation/PutPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/aop/annotation/PutPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/clevertec/cache/impl/LFUCache.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/cache/impl/LFUCache.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/clevertec/cache/impl/LRUCache.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/cache/impl/LRUCache.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/clevertec/dao/Dao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/dao/Dao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/clevertec/dao/impl/PlayerDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/dao/impl/PlayerDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/clevertec/dto/PlayerDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/dto/PlayerDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/clevertec/mapper/PlayerMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/mapper/PlayerMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/clevertec/service/impl/PlayerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/service/impl/PlayerServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/clevertec/util/YamlReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/util/YamlReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +37,9 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
             <expand />
@@ -44,6 +56,7 @@
         <option value="Interface" />
         <option value="AnnotationType" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -65,6 +78,10 @@
               <option name="branches">
                 <list>
                   <RecentBranch>
+                    <option name="branchName" value="feature/tests" />
+                    <option name="lastUsedInstant" value="1700426374" />
+                  </RecentBranch>
+                  <RecentBranch>
                     <option name="branchName" value="feature/service" />
                     <option name="lastUsedInstant" value="1700421779" />
                   </RecentBranch>
@@ -79,10 +96,6 @@
                   <RecentBranch>
                     <option name="branchName" value="develop" />
                     <option name="lastUsedInstant" value="1700142936" />
-                  </RecentBranch>
-                  <RecentBranch>
-                    <option name="branchName" value="feature/yml" />
-                    <option name="lastUsedInstant" value="1700085575" />
                   </RecentBranch>
                 </list>
               </option>
@@ -110,7 +123,9 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "feature/service",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "feature/tests",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -125,7 +140,15 @@
     ]
   }
 }]]></component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="ru.clevertec.cache.impl" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Gradle.LRUCacheTest">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ru.clevertec.Main" />
       <module name="reflectionTask.main" />
@@ -139,24 +162,111 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="LFUCacheTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;ru.clevertec.cache.impl.LFUCacheTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="LRUCacheTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;ru.clevertec.cache.impl.LRUCacheTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="reflectionTask [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="reflectionTask [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
       <deployment type="docker-compose.yml">
         <settings />
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="docker-compose.yaml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
-      <deployment type="docker-compose.yml">
-        <settings>
-          <option name="sourceFilePath" value="docker-compose.yaml" />
-        </settings>
-      </deployment>
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.LRUCacheTest" />
+        <item itemvalue="Gradle.LFUCacheTest" />
+        <item itemvalue="Gradle.reflectionTask [build]" />
+        <item itemvalue="Gradle.reflectionTask [clean]" />
         <item itemvalue="Application.Main" />
-        <item itemvalue="Docker.docker-compose.yaml: Compose Deployment" />
       </list>
     </recent_temporary>
   </component>
@@ -251,7 +361,15 @@
       <option name="project" value="LOCAL" />
       <updated>1700086298333</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="feat: add service">
+      <option name="closed" value="true" />
+      <created>1700425749794</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1700425749796</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -268,6 +386,18 @@
     <MESSAGE value="feat: add dto" />
     <MESSAGE value="feat: add mapping" />
     <MESSAGE value="feat: add YamlReader" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add YamlReader" />
+    <MESSAGE value="feat: add service" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add service" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ru/clevertec/Main.java</url>
+          <line>16</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

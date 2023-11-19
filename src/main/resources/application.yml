@@ -1,3 +1,2 @@
-cache:
-  maxSize: 50
-  algorithm: LRU
+maxSize: 50
+algorithm: LRU

@@ -36,5 +36,6 @@ public interface PlayerMapper {
      * @param playerDto информация для обновления
      * @return обновлённый игрок
      */
+    @Mapping(target = "id", ignore = true)
     Player merge(@MappingTarget Player player, PlayerDto playerDto);
 }

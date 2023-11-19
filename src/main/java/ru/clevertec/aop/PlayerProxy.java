@@ -15,8 +15,8 @@ import java.util.UUID;
 
 @Aspect
 public class PlayerProxy {
-    private static final String ALGORITHM_FROM_FILE = (String) YamlReader.getProperty("algorithm");
-    private static final long MAX_SIZE_FROM_FILE = (long) YamlReader.getProperty("maxSize");
+    private static final String ALGORITHM_FROM_FILE = YamlReader.getAlgorithm();
+    private static final Integer MAX_SIZE_FROM_FILE = YamlReader.getMaxSize();
     private Cache<UUID, Player> cache = null;
 
     public PlayerProxy() {
@@ -27,13 +27,19 @@ public class PlayerProxy {
     }
 
     @Around("@annotation(ru.clevertec.aop.annotation.GetPlayer) && args(id)")
-    public Player getPlayer(ProceedingJoinPoint joinPoint, UUID id) throws Throwable {
+    public Optional<Player> getPlayer(ProceedingJoinPoint joinPoint, UUID id) throws Throwable {
         Optional<Player> player = cache.get(id);
-        if (player.isPresent())
-            return player.get();
-        Player obj = (Player) joinPoint.proceed();
-        cache.put(obj.getId(), obj);
-        return obj;
+        if (player.isPresent()) {
+            return player;
+        }
+        Optional<Player> obj = (Optional<Player>) joinPoint.proceed();
+        if (obj.isPresent()) {
+            Player player1 = obj.get();
+            cache.put(player1.getId(), player1);
+            return obj;
+        } else {
+            throw new RuntimeException("Player not found or null object returned");
+        }
     }
 
     @After("@annotation(ru.clevertec.aop.annotation.PostPlayer) && args(player)")

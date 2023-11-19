@@ -34,7 +34,9 @@ public class PlayerServiceImpl implements PlayerService {
     public UUID create(PlayerDto playerDto) {
         try {
             if(PlayerValidator.validate(playerDto)) {
-                return playerDao.save(mapper.toPlayer(playerDto)).getId();
+                Player player = mapper.toPlayer(playerDto);
+                player.setId(UUID.randomUUID());
+                return playerDao.save(player).getId();
             }
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
@@ -43,11 +45,11 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public void update(UUID uuid, PlayerDto playerDto) {
+    public void update(UUID id, PlayerDto playerDto) {
         try {
             if(PlayerValidator.validate(playerDto)) {
-                Player player = playerDao.findById(uuid).orElseThrow(() -> new PlayerNotFoundException(uuid));
-                playerDao.update(mapper.merge(player, playerDto));
+                Player player = playerDao.findById(id).orElseThrow(() -> new PlayerNotFoundException(id));
+                playerDao.update(id, mapper.merge(player, playerDto));
             }
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);

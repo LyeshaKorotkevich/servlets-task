@@ -1,5 +1,9 @@
 package ru.clevertec.dao.impl;
 
+import ru.clevertec.aop.annotation.DeletePlayer;
+import ru.clevertec.aop.annotation.GetPlayer;
+import ru.clevertec.aop.annotation.PostPlayer;
+import ru.clevertec.aop.annotation.PutPlayer;
 import ru.clevertec.dao.Dao;
 import ru.clevertec.db.DatabaseConnection;
 import ru.clevertec.entity.Player;
@@ -46,6 +50,7 @@ public class PlayerDao implements Dao<Player> {
     private static final String SQL_UPDATE_PLAYER = "UPDATE players SET name = ?, surname = ?, date_birth = ?, number = ? WHERE id = ?";
 
     @Override
+    @PostPlayer
     public Player save(Player player) {
         try (PreparedStatement statement = connection.prepareStatement(SQL_INSERT_PLAYER)) {
             statement.setObject(1, player.getId());
@@ -62,6 +67,7 @@ public class PlayerDao implements Dao<Player> {
     }
 
     @Override
+    @GetPlayer
     public Optional<Player> findById(UUID id) {
         try (PreparedStatement statement = connection.prepareStatement(SQL_SELECT_PLAYER_BY_ID)) {
             statement.setObject(1, id);
@@ -93,13 +99,14 @@ public class PlayerDao implements Dao<Player> {
     }
 
     @Override
-    public void update(Player player) {
+    @PutPlayer
+    public void update(UUID id, Player player) {
         try (PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_PLAYER)) {
             statement.setString(1, player.getName());
             statement.setString(2, player.getSurname());
             statement.setDate(3, Date.valueOf(player.getDateBirth()));
             statement.setInt(4, player.getNumber());
-            statement.setObject(5, player.getId());
+            statement.setObject(5, id);
 
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -108,6 +115,7 @@ public class PlayerDao implements Dao<Player> {
     }
 
     @Override
+    @DeletePlayer
     public void delete(UUID id) {
         try (PreparedStatement statement = connection.prepareStatement(SQL_DELETE_PLAYER)) {
             statement.setObject(1, id);

@@ -18,12 +18,12 @@ public class LRUCache<K, V> implements Cache<K, V> {
     /**
      * Размер кэша по умолчанию.
      */
-    public static final Long DEFAULT_SIZE = 20L;
+    public static final Integer DEFAULT_SIZE = 20;
 
     /**
      * Размер кэша.
      */
-    private final Long size;
+    private final Integer size;
 
     /**
      * Хранилище элементов кэша.
@@ -47,7 +47,7 @@ public class LRUCache<K, V> implements Cache<K, V> {
      *
      * @param cacheSize Максимальное количество элементов, которые может содержать кэш.
      */
-    public LRUCache(Long cacheSize) {
+    public LRUCache(Integer cacheSize) {
         this.size = cacheSize;
         this.clean();
     }

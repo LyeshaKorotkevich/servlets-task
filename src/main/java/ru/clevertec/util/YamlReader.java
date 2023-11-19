@@ -1,6 +1,7 @@
 package ru.clevertec.util;
 
 import org.yaml.snakeyaml.Yaml;
+import ru.clevertec.Main;
 
 import java.io.InputStream;
 import java.util.Map;
@@ -11,23 +12,46 @@ import java.util.Map;
 public class YamlReader {
     private static final String CONFIG_FILE = "application.yml";
 
-    private static final Yaml yaml = new Yaml();
-    private static final InputStream inputStream = YamlReader.class
-            .getClassLoader()
-            .getResourceAsStream(CONFIG_FILE);
-    private static final Map<String, Object> configMap = yaml.load(inputStream);
+    private static final Map<String, Object> configMap;
+
+    static {
+        Yaml yaml = new Yaml();
+        try (InputStream inputStream = YamlReader.class.getClassLoader().getResourceAsStream(CONFIG_FILE)) {
+            if (inputStream != null) {
+                configMap = yaml.load(inputStream);
+            } else {
+                throw new RuntimeException("Could not load " + CONFIG_FILE);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error loading " + CONFIG_FILE, e);
+        }
+    }
 
     /**
-     * Получает значение по имени из конфигурационного файла.
+     * Получает значение размера кэша из конфигурационного файла.
      *
-     * @return значение
+     * @return размер кэша.
      * @throws RuntimeException Если значение не найдено в конфигурационном файле.
      */
-    public static Object getProperty(String property) {
-        if (configMap.containsKey(property)) {
-            return configMap.get(property);
+    public static Integer getMaxSize() {
+        if (configMap != null && configMap.containsKey("maxSize")) {
+            return (Integer) configMap.get("maxSize");
         } else {
-            throw new RuntimeException("Property is not found in config");
+            throw new RuntimeException("Maximum size is not found in config");
+        }
+    }
+
+    /**
+     * Получает вид алгоритма кэширования из конфигурационного файла.
+     *
+     * @return алгоритм.
+     * @throws RuntimeException Если значение не найдено в конфигурационном файле.
+     */
+    public static String getAlgorithm() {
+        if (configMap != null && configMap.containsKey("algorithm")) {
+            return (String) configMap.get("algorithm");
+        } else {
+            throw new RuntimeException("Algorithm is not found in config");
         }
     }
 }
