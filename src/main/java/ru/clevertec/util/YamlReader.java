@@ -18,30 +18,16 @@ public class YamlReader {
     private static final Map<String, Object> configMap = yaml.load(inputStream);
 
     /**
-     * Получает значение размера кэша из конфигурационного файла.
+     * Получает значение по имени из конфигурационного файла.
      *
-     * @return размер кэша.
+     * @return значение
      * @throws RuntimeException Если значение не найдено в конфигурационном файле.
      */
-    public static Long getMaxSize() {
-        if (configMap.containsKey("maxSize")) {
-            return (Long) configMap.get("maxSize");
+    public static Object getProperty(String property) {
+        if (configMap.containsKey(property)) {
+            return configMap.get(property);
         } else {
-            throw new RuntimeException("Maximum size is not found in config");
-        }
-    }
-
-    /**
-     * Получает вид алгоритма кэширования из конфигурационного файла.
-     *
-     * @return алгоритм.
-     * @throws RuntimeException Если значение не найдено в конфигурационном файле.
-     */
-    public static String getAlgorithm() {
-        if (configMap.containsKey("algorithm")) {
-            return (String) configMap.get("algorithm");
-        } else {
-            throw new RuntimeException("Algorithm is not found in config");
+            throw new RuntimeException("Property is not found in config");
         }
     }
 }

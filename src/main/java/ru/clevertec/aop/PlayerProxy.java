@@ -15,8 +15,8 @@ import java.util.UUID;
 
 @Aspect
 public class PlayerProxy {
-    private static final String ALGORITHM_FROM_FILE = YamlReader.getAlgorithm();
-    private static final long MAX_SIZE_FROM_FILE = YamlReader.getMaxSize();
+    private static final String ALGORITHM_FROM_FILE = (String) YamlReader.getProperty("algorithm");
+    private static final long MAX_SIZE_FROM_FILE = (long) YamlReader.getProperty("maxSize");
     private Cache<UUID, Player> cache = null;
 
     public PlayerProxy() {
