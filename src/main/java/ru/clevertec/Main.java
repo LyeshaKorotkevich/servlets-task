@@ -2,7 +2,6 @@ package ru.clevertec;
 
 import ru.clevertec.dto.PlayerDto;
 import ru.clevertec.service.impl.PlayerServiceImpl;
-import ru.clevertec.util.YamlReader;
 
 import java.time.LocalDate;
 import java.util.UUID;

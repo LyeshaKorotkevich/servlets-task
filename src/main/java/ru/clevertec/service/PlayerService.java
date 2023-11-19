@@ -33,7 +33,7 @@ public interface PlayerService {
     /**
      * Обновляет уже существующего игрока из информации полученной в DTO
      *
-     * @param uuid       идентификатор игрока для обновления
+     * @param uuid      идентификатор игрока для обновления
      * @param playerDto DTO с информацией об обновлении
      */
     void update(UUID uuid, PlayerDto playerDto);

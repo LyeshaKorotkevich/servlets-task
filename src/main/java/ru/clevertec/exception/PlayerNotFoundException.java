@@ -6,6 +6,7 @@ public class PlayerNotFoundException extends RuntimeException {
 
     /**
      * Сообщение должно быть именно такого формата
+     *
      * @param id - идентификатор игрока
      */
     public PlayerNotFoundException(UUID id) {

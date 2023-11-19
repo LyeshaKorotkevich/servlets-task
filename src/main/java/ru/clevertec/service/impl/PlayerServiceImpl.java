@@ -33,7 +33,7 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public UUID create(PlayerDto playerDto) {
         try {
-            if(PlayerValidator.validate(playerDto)) {
+            if (PlayerValidator.validate(playerDto)) {
                 Player player = mapper.toPlayer(playerDto);
                 player.setId(UUID.randomUUID());
                 return playerDao.save(player).getId();
@@ -47,7 +47,7 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public void update(UUID id, PlayerDto playerDto) {
         try {
-            if(PlayerValidator.validate(playerDto)) {
+            if (PlayerValidator.validate(playerDto)) {
                 Player player = playerDao.findById(id).orElseThrow(() -> new PlayerNotFoundException(id));
                 playerDao.update(id, mapper.merge(player, playerDto));
             }

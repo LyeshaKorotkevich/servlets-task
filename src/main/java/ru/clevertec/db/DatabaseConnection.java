@@ -4,15 +4,19 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * Утилитарный класс для установления и закрытия соединения с базой данных PostgreSQL.
+ */
 public class DatabaseConnection {
     private static final String URL = "jdbc:postgresql://localhost:5438/postgres";
     private static final String USERNAME = "admin";
     private static final String PASSWORD = "root";
 
     /**
-     * Метод выдающий connection к базе данных
+     * Получает соединение с базой данных.
      *
-     * @return объект типа Connection
+     * @return Объект типа Connection для работы с базой данных.
+     * @throws RuntimeException если возникает ошибка при подключении к базе данных.
      */
     public static Connection getConnection() {
         try {
@@ -20,7 +24,7 @@ public class DatabaseConnection {
             return DriverManager.getConnection(URL, USERNAME, PASSWORD);
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException("Error connecting to the database");
+            throw new RuntimeException("Ошибка при подключении к базе данных");
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }

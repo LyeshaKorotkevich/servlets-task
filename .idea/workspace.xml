@@ -5,24 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c28f922b-fd4b-4966-a120-73eb5c43e1fa" name="Changes" comment="feat: add YamlReader">
-      <change afterPath="$PROJECT_DIR$/src/test/java/ru/clevertec/cache/impl/LFUCacheTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ru/clevertec/cache/impl/LRUCacheTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/clevertec/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/clevertec/aop/PlayerProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/aop/PlayerProxy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/clevertec/aop/annotation/DeletePlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/aop/annotation/DeletePlayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/clevertec/aop/annotation/GetPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/aop/annotation/GetPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/clevertec/aop/annotation/PostPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/aop/annotation/PostPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/clevertec/aop/annotation/PutPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/aop/annotation/PutPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/clevertec/cache/impl/LFUCache.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/cache/impl/LFUCache.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/clevertec/cache/impl/LRUCache.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/cache/impl/LRUCache.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/clevertec/dao/Dao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/dao/Dao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/clevertec/dao/impl/PlayerDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/dao/impl/PlayerDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/clevertec/dto/PlayerDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/dto/PlayerDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/clevertec/mapper/PlayerMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/mapper/PlayerMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/clevertec/db/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/db/DatabaseConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/clevertec/exception/PlayerNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/exception/PlayerNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/clevertec/service/PlayerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/service/PlayerService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/clevertec/service/impl/PlayerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/service/impl/PlayerServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/clevertec/util/YamlReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/util/YamlReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/clevertec/validator/PlayerValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/validator/PlayerValidator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +55,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="develop" />
+        <entry key="$PROJECT_DIR$" value="feature/tests" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -125,7 +117,7 @@
     "WebServerToolWindowFactoryState": "false",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "feature/tests",
+    "git-widget-placeholder": "develop",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -148,7 +140,7 @@
       <recent name="ru.clevertec.cache.impl" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.LRUCacheTest">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ru.clevertec.Main" />
       <module name="reflectionTask.main" />
@@ -388,16 +380,5 @@
     <MESSAGE value="feat: add YamlReader" />
     <MESSAGE value="feat: add service" />
     <option name="LAST_COMMIT_MESSAGE" value="feat: add service" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/ru/clevertec/Main.java</url>
-          <line>16</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

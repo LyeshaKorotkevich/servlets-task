@@ -13,6 +13,11 @@ import ru.clevertec.util.YamlReader;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Аспектно-ориентированный прокси для операций с объектами Player, использующий стратегии кэширования (LRU или LFU)
+ * на основе конфигурации. Управляет кэшированием объектов Player с использованием определенных алгоритмов,
+ * полученных из Yaml-конфигурации.
+ */
 @Aspect
 public class PlayerProxy {
     private static final String ALGORITHM_FROM_FILE = YamlReader.getAlgorithm();

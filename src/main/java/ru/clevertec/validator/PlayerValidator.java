@@ -10,7 +10,19 @@ import ru.clevertec.validator.annotation.TShirtNumber;
 import java.lang.reflect.Field;
 import java.time.LocalDate;
 
+/**
+ * Класс, отвечающий за валидацию полей объекта с использованием аннотаций.
+ */
 public class PlayerValidator {
+
+    /**
+     * Проверяет объект на соответствие установленным аннотациям валидации.
+     *
+     * @param object Объект, подлежащий валидации.
+     * @return true, если объект прошел валидацию, иначе ValidationException.
+     * @throws ValidationException    выбрасывается, если объект не прошел валидацию.
+     * @throws IllegalAccessException выбрасывается, если нет доступа к полям объекта.
+     */
     public static boolean validate(Object object) throws ValidationException, IllegalAccessException {
         Class<?> objectClass = object.getClass();
         for (Field field : objectClass.getDeclaredFields()) {
@@ -29,6 +41,10 @@ public class PlayerValidator {
 
             if (field.isAnnotationPresent(Past.class)) {
                 validatePast(field, object);
+            }
+
+            if (field.isAnnotationPresent(Pattern.class)) {
+                validatePattern(field, object);
             }
         }
         return true;
