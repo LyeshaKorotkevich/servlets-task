@@ -14,8 +14,13 @@ import java.util.List;
 import java.util.UUID;
 
 public class PlayerServiceImpl implements PlayerService {
-    private final Dao<Player> playerDao = new PlayerDao();
-    private final PlayerMapper mapper = new PlayerMapperImpl();
+    private final Dao<Player> playerDao;
+    private final PlayerMapper mapper;
+
+    public PlayerServiceImpl(Dao<Player> playerDao, PlayerMapper mapper) {
+        this.playerDao = playerDao;
+        this.mapper = mapper;
+    }
 
     @Override
     public PlayerDto get(UUID id) {

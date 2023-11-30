@@ -5,10 +5,8 @@ import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import ru.clevertec.cache.Cache;
-import ru.clevertec.cache.impl.LFUCache;
-import ru.clevertec.cache.impl.LRUCache;
+import ru.clevertec.cache.factory.CacheFactoryImpl;
 import ru.clevertec.entity.Player;
-import ru.clevertec.util.YamlReader;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -20,15 +18,11 @@ import java.util.UUID;
  */
 @Aspect
 public class PlayerProxy {
-    private static final String ALGORITHM_FROM_FILE = YamlReader.getAlgorithm();
-    private static final Integer MAX_SIZE_FROM_FILE = YamlReader.getMaxSize();
-    private Cache<UUID, Player> cache = null;
+    private final Cache<UUID, Player> cache;
 
     public PlayerProxy() {
-        switch (ALGORITHM_FROM_FILE) {
-            case "LRU" -> cache = new LRUCache<>(MAX_SIZE_FROM_FILE);
-            case "LFU" -> cache = new LFUCache<>(MAX_SIZE_FROM_FILE);
-        }
+        CacheFactoryImpl<UUID, Player> cacheFactory = new CacheFactoryImpl<>();
+        cache = cacheFactory.createCache();
     }
 
     @Around("@annotation(ru.clevertec.aop.annotation.GetPlayer) && args(id)")
