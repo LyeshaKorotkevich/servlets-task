@@ -7,6 +7,7 @@ import org.aspectj.lang.annotation.Aspect;
 import ru.clevertec.cache.Cache;
 import ru.clevertec.cache.factory.CacheFactoryImpl;
 import ru.clevertec.entity.Player;
+import ru.clevertec.exception.PlayerNotFoundException;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -37,7 +38,7 @@ public class PlayerProxy {
             cache.put(player1.getId(), player1);
             return obj;
         } else {
-            throw new RuntimeException("Player not found or null object returned");
+            throw new PlayerNotFoundException(id);
         }
     }
 

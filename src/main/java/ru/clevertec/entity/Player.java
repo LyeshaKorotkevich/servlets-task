@@ -43,5 +43,4 @@ public class Player {
      * Поле номера на футболке игрока
      */
     private int number;
-
 }

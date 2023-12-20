@@ -1,7 +1,6 @@
 package ru.clevertec.util;
 
 import org.yaml.snakeyaml.Yaml;
-import ru.clevertec.Main;
 
 import java.io.InputStream;
 import java.util.Map;

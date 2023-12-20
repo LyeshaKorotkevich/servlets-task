@@ -1,12 +1,10 @@
 package ru.clevertec.service.impl;
 
 import ru.clevertec.dao.Dao;
-import ru.clevertec.dao.impl.PlayerDao;
 import ru.clevertec.dto.PlayerDto;
 import ru.clevertec.entity.Player;
 import ru.clevertec.exception.PlayerNotFoundException;
 import ru.clevertec.mapper.PlayerMapper;
-import ru.clevertec.mapper.PlayerMapperImpl;
 import ru.clevertec.service.PlayerService;
 import ru.clevertec.validator.PlayerValidator;
 

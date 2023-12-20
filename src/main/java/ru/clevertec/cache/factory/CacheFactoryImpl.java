@@ -15,6 +15,7 @@ public class CacheFactoryImpl<K, V> implements CacheFactory<K, V>{
         switch (ALGORITHM_FROM_FILE) {
             case "LRU" -> cache = new LRUCache<>(MAX_SIZE_FROM_FILE);
             case "LFU" -> cache = new LFUCache<>(MAX_SIZE_FROM_FILE);
+            default -> throw new IllegalStateException("Unexpected value: " + ALGORITHM_FROM_FILE);
         }
         return cache;
     }
