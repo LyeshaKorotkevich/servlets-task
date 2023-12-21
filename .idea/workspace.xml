@@ -9,11 +9,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c28f922b-fd4b-4966-a120-73eb5c43e1fa" name="Changes" comment="feat: delete javadoc">
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/filter/EncodingFilter.java" afterDir="false" />
+    <list default="true" id="c28f922b-fd4b-4966-a120-73eb5c43e1fa" name="Changes" comment="feat: done Filter">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/clevertec/servlet/PlayerServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/clevertec/servlet/PlayerServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/clevertec/util/Http.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,6 +68,10 @@
               <option name="branches">
                 <list>
                   <RecentBranch>
+                    <option name="branchName" value="feature/findAll" />
+                    <option name="lastUsedInstant" value="1703107579" />
+                  </RecentBranch>
+                  <RecentBranch>
                     <option name="branchName" value="feature/filter" />
                     <option name="lastUsedInstant" value="1703097111" />
                   </RecentBranch>
@@ -124,7 +125,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Tomcat Server.Tomcat 9.0.73.executor": "Run",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "feature/filter",
+    "git-widget-placeholder": "feature/findAll",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -357,11 +358,11 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.servlets-task [build]" />
-        <item itemvalue="Gradle.servlets-task [clean]" />
         <item itemvalue="Gradle.PlayerServiceImplTest" />
         <item itemvalue="Gradle.PdfPrinterTest.testPrintGeneratesPdfWithPlayers" />
         <item itemvalue="Gradle.PdfPrinterTest.printShouldInvokeService" />
+        <item itemvalue="Gradle.servlets-task [clean]" />
+        <item itemvalue="Gradle.servlets-task [build]" />
       </list>
     </recent_temporary>
   </component>
@@ -403,7 +404,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702831194426</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="feat: done Filter">
+      <option name="closed" value="true" />
+      <created>1703098052482</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1703098052482</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -412,7 +421,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: develop branch" />
     <MESSAGE value="feat: delete javadoc" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: delete javadoc" />
+    <MESSAGE value="feat: done Filter" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: done Filter" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/reflectionTask$Tests_in__reflectionTask_test_.ic" NAME="Tests in 'reflectionTask.test' Coverage Results" MODIFIED="1701376768409" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

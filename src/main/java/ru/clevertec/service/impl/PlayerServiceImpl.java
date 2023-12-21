@@ -8,6 +8,7 @@ import ru.clevertec.mapper.PlayerMapper;
 import ru.clevertec.service.PlayerService;
 import ru.clevertec.validator.PlayerValidator;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,6 +33,23 @@ public class PlayerServiceImpl implements PlayerService {
                 .map(mapper::toPlayerDto)
                 .toList();
     }
+
+    @Override
+    public List<PlayerDto> getAll(int page, int pageSize) {
+        List<PlayerDto> list = this.getAll();
+        int listSize = list.size();
+
+        int totalPages = listSize % pageSize == 0 ? listSize / pageSize : listSize / pageSize + 1;
+
+        if (page < 1 || page > totalPages) {
+            return Collections.emptyList();
+        }
+
+        int start = (page - 1) * pageSize;
+        int end = Math.min(start + pageSize, listSize);
+        return list.subList(start, end);
+    }
+
 
     @Override
     public UUID create(PlayerDto playerDto) {

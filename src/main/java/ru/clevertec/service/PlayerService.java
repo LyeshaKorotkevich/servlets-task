@@ -23,6 +23,15 @@ public interface PlayerService {
     List<PlayerDto> getAll();
 
     /**
+     * Возвращает игроков с учетом пагинации
+     *
+     * @param page номер страницы
+     * @param pageSize размер страницы
+     * @return список игроков размером с размер страницы
+     */
+    List<PlayerDto> getAll(int page, int pageSize);
+
+    /**
      * Создаёт новог игрока из DTO
      *
      * @param playerDto DTO с информацией о создании
