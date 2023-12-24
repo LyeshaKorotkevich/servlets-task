@@ -53,4 +53,12 @@ public class YamlReader {
             throw new RuntimeException("Algorithm is not found in config");
         }
     }
+
+    public static boolean getInitialize() {
+        if (configMap != null && configMap.containsKey("liquibase.initialize")) {
+            return (boolean) configMap.get("liquibase.initialize");
+        } else {
+            throw new RuntimeException("liquibase.initialize is not found in config");
+        }
+    }
 }

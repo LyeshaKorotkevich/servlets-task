@@ -37,6 +37,7 @@ dependencies {
     implementation 'com.itextpdf:itextpdf:5.5.13.3'
 
     runtimeOnly 'org.postgresql:postgresql:42.6.0'
+    implementation 'org.liquibase:liquibase-core:4.24.0'
 
     compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
 
