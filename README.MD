@@ -30,7 +30,9 @@ REST- запросы:
 
 2) GET player by ID: http://localhost:8081/players/550e8400-e29b-41d4-a716-446655440000
 
-{"name":"John","surname":"Doe","dateBirth":"1990-05-15","number":7}
+```json 
+{"name":"John","surname":"Doe","dateBirth":"1990-05-15","number":7} 
+```
 
 3) GET получить pdf отчет: http://localhost:8081/players/550e8400-e29b-41d4-a716-446655440000/checks/pdf
-
+4) POST: http://localhost:8081/players
