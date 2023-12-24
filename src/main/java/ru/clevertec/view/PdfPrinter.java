@@ -15,15 +15,28 @@ import ru.clevertec.service.PlayerService;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Objects;
+import java.util.UUID;
 
 public class PdfPrinter implements Printer {
     private static final String OUTPUT_FILE = "players.pdf";
-    private static final String TEMPLATE_FILE = "Clevertec_Template.pdf";
+    private final String TEMPLATE_FILE = (Objects.requireNonNull(this.getClass().getClassLoader().getResource("Clevertec_Template.pdf"))).toString();
 
     private final PlayerService playerService;
 
+    private final Font headerFont;
+    private final Font regularFont;
+
     public PdfPrinter(PlayerService playerService) {
         this.playerService = playerService;
+
+        try {
+            BaseFont baseFont = BaseFont.createFont(Objects.requireNonNull(this.getClass().getClassLoader().getResource("fonts/arial.ttf")).toString(), BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            this.headerFont = new Font(baseFont, 30, Font.BOLD);
+            this.regularFont = new Font(baseFont, 20);
+        } catch (DocumentException | IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -44,7 +57,25 @@ public class PdfPrinter implements Printer {
         }
     }
 
-    private void addTemplateToDocument(PdfWriter writer) throws IOException, DocumentException {
+    @Override
+    public void printPlayer(UUID id) {
+        try {
+            Document document = new Document();
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("player_report_" + id + ".pdf"));
+
+            document.open();
+
+            addTemplateToDocument(writer);
+            addPlayerToDocument(document, id);
+
+            document.close();
+            writer.close();
+        } catch (DocumentException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void addTemplateToDocument(PdfWriter writer) throws IOException {
         PdfContentByte underContent = writer.getDirectContentUnder();
 
         PdfReader reader = new PdfReader(TEMPLATE_FILE);
@@ -53,13 +84,9 @@ public class PdfPrinter implements Printer {
     }
 
     private void addPlayersToDocument(Document document) throws DocumentException, IOException {
-        BaseFont baseFont = BaseFont.createFont("src/main/resources/fonts/arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-        Font header_font = new Font(baseFont, 30, Font.BOLD);
-        Font font = new Font(baseFont, 20);
-
         Paragraph paragraph = new Paragraph("\n".repeat(5));
         document.add(paragraph);
-        Paragraph playerInfo = new Paragraph("Clevertec players:", header_font);
+        Paragraph playerInfo = new Paragraph("Clevertec players:", headerFont);
         playerInfo.setSpacingAfter(80);
         playerInfo.setAlignment(Element.ALIGN_CENTER);
         document.add(playerInfo);
@@ -71,9 +98,29 @@ public class PdfPrinter implements Printer {
                             " " + player.surname() +
                             "(" + player.dateBirth() + ")"
 
-                    , font);
+                    , regularFont);
             playerDetails.setAlignment(Element.ALIGN_CENTER);
             document.add(playerDetails);
+        }
+    }
+
+    private void addPlayerToDocument(Document document, UUID id) throws DocumentException, IOException {
+        Paragraph paragraph = new Paragraph("\n".repeat(5));
+        document.add(paragraph);
+        PlayerDto player = playerService.get(id);
+        if (player != null) {
+            Paragraph playerInfo = new Paragraph(
+                    "Player Info:\n" +
+                            "Name: " + player.name() + "\n" +
+                            "Surname: " + player.surname() + "\n" +
+                            "Date of Birth: " + player.dateBirth() + "\n" +
+                            "Number on T-shirt: " + player.number(), regularFont);
+
+            playerInfo.setAlignment(Element.ALIGN_LEFT);
+            document.add(playerInfo);
+        } else {
+            Paragraph notFound = new Paragraph("Player not found with ID: " + id, regularFont);
+            document.add(notFound);
         }
     }
 }

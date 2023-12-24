@@ -5,20 +5,27 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import ru.clevertec.config.ApplicationConfig;
 import ru.clevertec.dto.PlayerDto;
 import ru.clevertec.service.PlayerService;
+import ru.clevertec.util.ControllerUtil;
+import ru.clevertec.view.PdfPrinter;
+import ru.clevertec.view.Printer;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.UUID;
 
-@WebServlet("/players/*")
-public class PlayerServlet extends HttpServlet {
+import static ru.clevertec.util.Constants.DEFAULT_PAGE_SIZE;
+import static ru.clevertec.util.Constants.INVALID_PLAYER_DATA_FORMAT;
+import static ru.clevertec.util.Constants.INVALID_PLAYER_ID;
 
-    private static final int DEFAULT_PAGE_SIZE = 20;
-    private static final String INVALID_PLAYER_ID = "Invalid Player ID format";
+@WebServlet({"/players/*", "/players/*/checks/pdf"})
+public class PlayerServlet extends HttpServlet {
 
     private final PlayerService playerService;
     private final ObjectMapper mapper;
@@ -34,6 +41,8 @@ public class PlayerServlet extends HttpServlet {
 
         if (pathInfo == null) {
             handleGetPlayers(req, resp);
+        } else if (pathInfo.endsWith("/checks/pdf")) {
+            handleGeneratePdfReport(req, resp);
         } else {
             handleGetPlayerById(req, resp);
         }
@@ -48,13 +57,13 @@ public class PlayerServlet extends HttpServlet {
             resp.sendRedirect(req.getContextPath() + req.getServletPath() + "/" + id);
         } catch (JsonProcessingException e) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resp.getWriter().write("Invalid Player data format");
+            resp.getWriter().write(INVALID_PLAYER_DATA_FORMAT);
         }
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        UUID id = extractPlayerIdFromPath(req, resp);
+        UUID id = ControllerUtil.extractPlayerIdFromPath(req, resp, 2, 1);
 
         try {
             PlayerDto playerDto = mapper.readValue(req.getInputStream(), PlayerDto.class);
@@ -63,13 +72,13 @@ public class PlayerServlet extends HttpServlet {
             resp.sendRedirect(req.getContextPath() + req.getServletPath() + "/" + id);
         } catch (JsonProcessingException e) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resp.getWriter().write("Invalid Player data format");
+            resp.getWriter().write(INVALID_PLAYER_DATA_FORMAT);
         }
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        UUID id = extractPlayerIdFromPath(req, resp);
+        UUID id = ControllerUtil.extractPlayerIdFromPath(req, resp, 2, 1);
 
         try {
             playerService.delete(id);
@@ -115,7 +124,7 @@ public class PlayerServlet extends HttpServlet {
     }
 
     private void handleGetPlayerById(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        UUID id = extractPlayerIdFromPath(req, resp);
+        UUID id = ControllerUtil.extractPlayerIdFromPath(req, resp, 2, 1);
 
         try {
             PlayerDto playerDto = playerService.get(id);
@@ -133,24 +142,39 @@ public class PlayerServlet extends HttpServlet {
         }
     }
 
-    private UUID extractPlayerIdFromPath(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String pathInfo = req.getPathInfo();
+    private void handleGeneratePdfReport(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        UUID id = ControllerUtil.extractPlayerIdFromPath(req, resp, 4, 1);
 
-        String[] pathParts = pathInfo.split("/");
-        if (pathParts.length != 2) {
-            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resp.getWriter().write("Player ID is required");
-            return null;
-        }
-
-        UUID id;
         try {
-            id = UUID.fromString(pathParts[1]);
+            PlayerDto playerDto = playerService.get(id);
+            if (playerDto != null) {
+                Printer printer = new PdfPrinter(playerService);
+                printer.printPlayer(id);
+
+                resp.setContentType("application/pdf");
+                resp.setHeader("Content-Disposition", "attachment; filename=player_report_" + id + ".pdf");
+
+                try (InputStream inputStream = new FileInputStream("player_report_" + id + ".pdf");
+                     OutputStream outputStream = resp.getOutputStream()) {
+
+                    byte[] buffer = new byte[1024];
+                    int bytesRead;
+                    while ((bytesRead = inputStream.read(buffer)) != -1) {
+                        outputStream.write(buffer, 0, bytesRead);
+                    }
+                } catch (IOException e) {
+                    resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    resp.getWriter().write("Error reading or writing PDF report");
+                }
+
+                resp.setStatus(HttpServletResponse.SC_OK);
+            } else {
+                resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                resp.getWriter().write("Player not found");
+            }
         } catch (IllegalArgumentException e) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             resp.getWriter().write(INVALID_PLAYER_ID);
-            return null;
         }
-        return id;
     }
 }
