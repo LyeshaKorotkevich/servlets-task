@@ -2,13 +2,15 @@ package ru.clevertec.servlet;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ru.clevertec.config.ApplicationConfig;
+import org.springframework.context.ApplicationContext;
 import ru.clevertec.dto.PlayerDto;
 import ru.clevertec.service.PlayerService;
 import ru.clevertec.util.ControllerUtil;
 import ru.clevertec.view.PdfPrinter;
 import ru.clevertec.view.Printer;
 
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,12 +29,17 @@ import static ru.clevertec.util.Constants.INVALID_PLAYER_ID;
 @WebServlet({"/players/*", "/players/*/checks/pdf"})
 public class PlayerServlet extends HttpServlet {
 
-    private final PlayerService playerService;
-    private final ObjectMapper mapper;
+    private PlayerService playerService;
+    private ObjectMapper objectMapper;
+    private Printer printer;
 
-    public PlayerServlet() {
-        this.playerService = ApplicationConfig.getPlayerService();
-        this.mapper = ApplicationConfig.getMapper();
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        ApplicationContext context = (ApplicationContext) getServletContext().getAttribute("appContext");
+        playerService = context.getBean(PlayerService.class);
+        objectMapper = context.getBean(ObjectMapper.class);
+        printer = context.getBean(PdfPrinter.class);
     }
 
     @Override
@@ -51,7 +58,7 @@ public class PlayerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
-            PlayerDto playerDto = mapper.readValue(req.getInputStream(), PlayerDto.class);
+            PlayerDto playerDto = objectMapper.readValue(req.getInputStream(), PlayerDto.class);
             UUID id = playerService.create(playerDto);
             resp.setStatus(HttpServletResponse.SC_CREATED);
             resp.sendRedirect(req.getContextPath() + req.getServletPath() + "/" + id);
@@ -66,7 +73,7 @@ public class PlayerServlet extends HttpServlet {
         UUID id = ControllerUtil.extractPlayerIdFromPath(req, resp, 2, 1);
 
         try {
-            PlayerDto playerDto = mapper.readValue(req.getInputStream(), PlayerDto.class);
+            PlayerDto playerDto = objectMapper.readValue(req.getInputStream(), PlayerDto.class);
             playerService.update(id, playerDto);
             resp.setStatus(HttpServletResponse.SC_CREATED);
             resp.sendRedirect(req.getContextPath() + req.getServletPath() + "/" + id);
@@ -110,7 +117,7 @@ public class PlayerServlet extends HttpServlet {
             List<PlayerDto> playerDtoList = playerService.getAll(page, pageSize);
 
             if (!playerDtoList.isEmpty()) {
-                String json = mapper.writeValueAsString(playerDtoList);
+                String json = objectMapper.writeValueAsString(playerDtoList);
                 resp.setStatus(HttpServletResponse.SC_OK);
                 resp.getWriter().write(json);
             } else {
@@ -129,7 +136,7 @@ public class PlayerServlet extends HttpServlet {
         try {
             PlayerDto playerDto = playerService.get(id);
             if (playerDto != null) {
-                String json = mapper.writeValueAsString(playerDto);
+                String json = objectMapper.writeValueAsString(playerDto);
                 resp.setStatus(HttpServletResponse.SC_OK);
                 resp.getWriter().write(json);
             } else {
@@ -148,7 +155,6 @@ public class PlayerServlet extends HttpServlet {
         try {
             PlayerDto playerDto = playerService.get(id);
             if (playerDto != null) {
-                Printer printer = new PdfPrinter(playerService);
                 printer.printPlayer(id);
 
                 resp.setContentType("application/pdf");

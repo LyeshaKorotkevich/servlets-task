@@ -1,5 +1,7 @@
 package ru.clevertec.dao.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import ru.clevertec.aop.annotation.DeletePlayer;
 import ru.clevertec.aop.annotation.GetPlayer;
 import ru.clevertec.aop.annotation.PostPlayer;
@@ -20,8 +22,17 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Repository
 public class PlayerDao implements Dao<Player> {
-    private final Connection connection = DatabaseConnection.getConnection();
+    private final Connection connection;
+
+    public PlayerDao(@Autowired DatabaseConnection databaseConnection) {
+        try {
+            connection = databaseConnection.getConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     /**
      * Запрос на запись данных в таблицу БД

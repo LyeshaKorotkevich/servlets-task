@@ -1,21 +1,27 @@
 package ru.clevertec.cache.factory;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import ru.clevertec.cache.Cache;
 import ru.clevertec.cache.impl.LFUCache;
 import ru.clevertec.cache.impl.LRUCache;
-import ru.clevertec.util.YamlReader;
 
-public class CacheFactoryImpl<K, V> implements CacheFactory<K, V>{
-    private static final String ALGORITHM_FROM_FILE = YamlReader.getAlgorithm();
-    private static final Integer MAX_SIZE_FROM_FILE = YamlReader.getMaxSize();
-    private Cache<K, V> cache = null;
+@Component
+public class CacheFactoryImpl<K, V> implements CacheFactory<K, V> {
+
+    @Value("${cache.algorithm}")
+    private String algorithm;
+
+    @Value("${cache.maxSize}")
+    private int maxSize;
 
     @Override
     public Cache<K, V> createCache() {
-        switch (ALGORITHM_FROM_FILE) {
-            case "LRU" -> cache = new LRUCache<>(MAX_SIZE_FROM_FILE);
-            case "LFU" -> cache = new LFUCache<>(MAX_SIZE_FROM_FILE);
-            default -> throw new IllegalStateException("Unexpected value: " + ALGORITHM_FROM_FILE);
+        Cache<K, V> cache;
+        switch (algorithm) {
+            case "LRU" -> cache = new LRUCache<>(maxSize);
+            case "LFU" -> cache = new LFUCache<>(maxSize);
+            default -> throw new IllegalStateException("Unexpected value: " + algorithm);
         }
         return cache;
     }

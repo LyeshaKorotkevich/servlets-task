@@ -1,25 +1,48 @@
 package ru.clevertec.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.Getter;
-import ru.clevertec.dao.Dao;
-import ru.clevertec.dao.impl.PlayerDao;
+import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
+import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.core.io.ClassPathResource;
+import ru.clevertec.cache.Cache;
+import ru.clevertec.cache.factory.CacheFactory;
 import ru.clevertec.entity.Player;
-import ru.clevertec.mapper.PlayerMapper;
-import ru.clevertec.mapper.PlayerMapperImpl;
-import ru.clevertec.service.PlayerService;
-import ru.clevertec.service.impl.PlayerServiceImpl;
 
+import java.util.Objects;
+import java.util.Properties;
+import java.util.UUID;
+
+@Configuration
+@EnableAspectJAutoProxy
+@ComponentScan("ru.clevertec")
+@PropertySource("classpath:application.yml")
+@Import(DatabaseConfig.class)
 public class ApplicationConfig {
-    private static final Dao<Player> playerDao = new PlayerDao();
-    private static final PlayerMapper playerMapper = new PlayerMapperImpl();
 
-    @Getter
-    private static final PlayerService playerService = new PlayerServiceImpl(playerDao, playerMapper);
+    @Bean
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper().findAndRegisterModules();
+    }
 
-    @Getter
-    private static final ObjectMapper mapper = new ObjectMapper().findAndRegisterModules();
+    @Bean
+    public Cache<UUID, Player> cache(CacheFactory<UUID, Player> cacheFactory) {
+        return cacheFactory.createCache();
+    }
 
-    private ApplicationConfig() {
+    @Bean
+    public BeanFactoryPostProcessor beanFactoryPostProcessor() {
+        PropertySourcesPlaceholderConfigurer configurer = new PropertySourcesPlaceholderConfigurer();
+        YamlPropertiesFactoryBean yaml = new YamlPropertiesFactoryBean();
+        yaml.setResources(new ClassPathResource("application.yml"));
+        Properties property = Objects.requireNonNull(yaml.getObject(), "Not found");
+        configurer.setProperties(property);
+        return configurer;
     }
 }

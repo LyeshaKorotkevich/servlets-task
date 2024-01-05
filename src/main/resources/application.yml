@@ -1,3 +1,12 @@
-maxSize: 50
-algorithm: LRU
+database:
+  username: admin
+  password: root
+  serverName: localhost
+  port: 5438
+  name: playersDB
+
+cache:
+  maxSize: 50
+  algorithm: LRU
+
 liquibase.initialize: true

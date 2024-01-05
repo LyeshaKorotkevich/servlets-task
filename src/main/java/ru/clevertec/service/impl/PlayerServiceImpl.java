@@ -1,5 +1,8 @@
 package ru.clevertec.service.impl;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 import ru.clevertec.dao.Dao;
 import ru.clevertec.dto.PlayerDto;
 import ru.clevertec.entity.Player;
@@ -12,17 +15,16 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
+@Slf4j
+@Service
+@RequiredArgsConstructor
 public class PlayerServiceImpl implements PlayerService {
     private final Dao<Player> playerDao;
     private final PlayerMapper mapper;
 
-    public PlayerServiceImpl(Dao<Player> playerDao, PlayerMapper mapper) {
-        this.playerDao = playerDao;
-        this.mapper = mapper;
-    }
-
     @Override
     public PlayerDto get(UUID id) {
+        log.info("call get(id)");
         Player player = playerDao.findById(id).orElseThrow(() -> new PlayerNotFoundException(id));
         return mapper.toPlayerDto(player);
     }

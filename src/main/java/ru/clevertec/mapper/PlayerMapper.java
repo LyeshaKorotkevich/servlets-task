@@ -6,9 +6,7 @@ import org.mapstruct.MappingTarget;
 import ru.clevertec.dto.PlayerDto;
 import ru.clevertec.entity.Player;
 
-import java.util.UUID;
-
-@Mapper
+@Mapper(componentModel = "spring")
 public interface PlayerMapper {
 
     /**

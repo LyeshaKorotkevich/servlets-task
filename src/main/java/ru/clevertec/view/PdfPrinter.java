@@ -10,6 +10,8 @@ import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfImportedPage;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfWriter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.clevertec.dto.PlayerDto;
 import ru.clevertec.service.PlayerService;
 
@@ -18,6 +20,7 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
 
+@Component
 public class PdfPrinter implements Printer {
     private static final String OUTPUT_FILE = "players.pdf";
     private final String TEMPLATE_FILE = (Objects.requireNonNull(this.getClass().getClassLoader().getResource("Clevertec_Template.pdf"))).toString();
@@ -27,6 +30,7 @@ public class PdfPrinter implements Printer {
     private final Font headerFont;
     private final Font regularFont;
 
+    @Autowired
     public PdfPrinter(PlayerService playerService) {
         this.playerService = playerService;
 

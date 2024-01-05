@@ -1,11 +1,13 @@
 package ru.clevertec.aop;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.springframework.stereotype.Component;
 import ru.clevertec.cache.Cache;
-import ru.clevertec.cache.factory.CacheFactoryImpl;
 import ru.clevertec.entity.Player;
 import ru.clevertec.exception.PlayerNotFoundException;
 
@@ -17,17 +19,17 @@ import java.util.UUID;
  * на основе конфигурации. Управляет кэшированием объектов Player с использованием определенных алгоритмов,
  * полученных из Yaml-конфигурации.
  */
+@Slf4j
 @Aspect
+@Component
+@RequiredArgsConstructor
 public class PlayerProxy {
-    private final Cache<UUID, Player> cache;
 
-    public PlayerProxy() {
-        CacheFactoryImpl<UUID, Player> cacheFactory = new CacheFactoryImpl<>();
-        cache = cacheFactory.createCache();
-    }
+    private final Cache<UUID, Player> cache;
 
     @Around("@annotation(ru.clevertec.aop.annotation.GetPlayer) && args(id)")
     public Optional<Player> getPlayer(ProceedingJoinPoint joinPoint, UUID id) throws Throwable {
+        log.info("call getPlayer()");
         Optional<Player> player = cache.get(id);
         if (player.isPresent()) {
             return player;
